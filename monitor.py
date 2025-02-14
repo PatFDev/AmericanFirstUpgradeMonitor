@@ -106,7 +106,7 @@ class Monitor:
                     ],
                     "footer": {
                         "text": "American Airlines Price Monitor",
-                        "icon_url": "https://upload.wikimedia.org/wikipedia/commons/9/9d/American_Airlines_Logo.svg"
+                        "icon_url": "https://static.dezeen.com/uploads/2013/01/dezeen_American-Airlines-logo-and-livery_4a.jpg"
                     },
                     "timestamp": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())  # UTC timestamp
                 }
