@@ -37,6 +37,7 @@ class Monitor:
         self.price = self.get_price()
         self.discord_webhook = os.getenv('DISCORD_WEBHOOK')
         self.delay = 60  # seconds
+        self.data = None
 
         if not self.discord_webhook:
             logging.error("No Discord Webhook URL found in environment variables!")
@@ -59,6 +60,7 @@ class Monitor:
                     logging.error("No content found in teaser.")
                     return None
                 if content.get('cabinType') == 'FIRST':
+                    self.data = content
                     price = content.get('offerPrice')
                     logging.info(f"Price to upgrade to First: ${price}")
                     return price
@@ -98,7 +100,9 @@ class Monitor:
                     "fields": [
                         {"name": "New Price", "value": f"${self.price}", "inline": True},
                         {"name": "Currency", "value": "USD", "inline": True},
-                        {"name": "Cabin Type", "value": "First Class", "inline": False}
+                        {"name": "Cabin Type", "value": "First Class", "inline": False},
+                        {"name": "Origin", "value": self.data.get('originAirportCode'), "inline": True},
+                        {"name": "Destination", "value": self.data.get('destinationAirportCode'), "inline": True},
                     ],
                     "footer": {
                         "text": "American Airlines Price Monitor",
