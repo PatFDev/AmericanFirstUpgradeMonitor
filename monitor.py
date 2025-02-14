@@ -50,8 +50,14 @@ class Monitor:
             data = response.json()
 
             teasers = data.get('teaser', [])
+            if not teasers:
+                logging.error("No teasers found in response.")
+                return None
             for teaser in teasers:
                 content = teaser.get('content', {})
+                if not content:
+                    logging.error("No content found in teaser.")
+                    return None
                 if content.get('cabinType') == 'FIRST':
                     price = content.get('offerPrice')
                     logging.info(f"Price to upgrade to First: ${price}")
