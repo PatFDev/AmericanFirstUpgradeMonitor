@@ -1,12 +1,11 @@
 # American Airlines Price Monitor
 
-This script monitors upgrade prices for American Airlines flights and sends notifications when the price changes. It logs activity using Python's `logging` module to ensure visibility on the Render dashboard.
+This script monitors upgrade prices for American Airlines flights and sends notifications when the price changes.
 
 ## Features
-- Fetches the upgrade price from the American Airlines API.
+- Fetches the upgrade price to First Class from the American Airlines API.
 - Monitors for price changes at regular intervals.
 - Sends notifications via Discord webhook when a price change is detected.
-- Logs all activities to Render for tracking.
 
 ## Requirements
 - Python 3.x
@@ -18,8 +17,8 @@ This script monitors upgrade prices for American Airlines flights and sends noti
 ## Installation
 1. Clone the repository:
    ```sh
-   git clone https://github.com/yourusername/aa-price-monitor.git
-   cd aa-price-monitor
+   git clone https://github.com/PatFDev/AmericanFirstUpgradeMonitor.git
+   cd AmericanFirstUpgradeMonitor
    ```
 2. Install dependencies:
    ```sh
@@ -37,15 +36,7 @@ Run the script:
 python monitor.py
 ```
 
-## Logging
-- The script uses Python's `logging` module to log events.
-- Logs will be visible on the Render dashboard.
-- Errors and significant updates will also be logged.
-
 ## Notes
 - The script will check the upgrade price every 60 seconds by default.
 - Stop the script with `CTRL+C`.
-
-## License
-MIT License
 
