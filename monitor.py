@@ -4,7 +4,7 @@ import dotenv
 import json
 import time
 import logging
-
+import random
 # Load environment variables
 dotenv.load_dotenv()
 
@@ -42,7 +42,7 @@ class Monitor:
             self.data_dict[code] = data
             
         self.discord_webhook = os.getenv('DISCORD_WEBHOOK')
-        self.delay = 60  # seconds
+        self.delay = random.randint(60, 120)   # seconds
 
         if not self.discord_webhook:
             logging.error("No Discord Webhook URL found in environment variables!")
@@ -130,7 +130,8 @@ class Monitor:
                     "description": description,
                     "color": color,
                     "fields": [
-                        {"name": "Confirmation Code", "value": confirmation_code, "inline": False},
+                        {"name": "Origin", "value": data.get('originAirportCode', 'Unknown'), "inline": True},
+                        {"name": "Destination", "value": data.get('destinationAirportCode', 'Unknown'), "inline": True},
                         {"name": "Old Price", "value": f"${old_price}" if old_price else "N/A", "inline": True},
                         {"name": "New Price", "value": f"${new_price}", "inline": True},
                         {"name": "Currency", "value": "USD", "inline": True},
@@ -144,13 +145,6 @@ class Monitor:
                 }
             ]
         }
-        
-        # Add origin/destination fields if available
-        if data:
-            if 'originAirportCode' in data:
-                embed["embeds"][0]["fields"].append({"name": "Origin", "value": data.get('originAirportCode'), "inline": True})
-            if 'destinationAirportCode' in data:
-                embed["embeds"][0]["fields"].append({"name": "Destination", "value": data.get('destinationAirportCode'), "inline": True})
         
         headers = {"Content-Type": "application/json"}
         try:
